@@ -1,0 +1,46 @@
+# Generate Icons - Application Web
+
+![Material Icons](https://img.shields.io/badge/Material-Icons-blue.svg)
+![Docker](https://img.shields.io/badge/Docker-Ready-lightblue.svg)
+![Flask](https://img.shields.io/badge/Flask-2.0.3-green.svg)
+
+Une application web qui génère des icônes Material Design à partir de mots-clés.
+
+## Fonctionnalités
+
+- Recherche parmi 2500+ icônes Material Design
+- Prévisualisation instantanée
+- Téléchargement au format PNG
+- Personnalisation de la taille
+- 100% gratuit - Pas besoin d'API
+
+## Prérequis
+
+- Docker Desktop ([Windows/Mac](https://www.docker.com/products/docker-desktop))
+- Git (optionnel)
+
+## Installation & Lancement
+
+### Méthode Docker (recommandée)
+
+1. Clonez le dépôt :
+```bash
+git clone https://github.com/votre-utilisateur/generate_icons.git
+cd generate_icons
+
+Construisez l'image Docker :
+
+bash
+Copy
+docker build -t generate_icons .
+
+Lancez le conteneur :
+
+bash
+Copy
+docker run -dp 5000:5000 --name icons-app generate_icons
+
+Accédez à l'application :
+
+Copy
+http://localhost:5000

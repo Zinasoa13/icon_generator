@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur Material Icons</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Générateur Material Icons</h1>
+        
+        <form method="POST" class="search-form">
+            <input type="text" name="text" placeholder="Rechercher une icône (ex: home, search...)">
+            <button type="submit">
+                <i class="material-icons">search</i> Chercher
+            </button>
+        </form>
+
+        {% if icon_name %}
+        <div class="result-container">
+            <div class="icon-preview">
+                <i class="material-icons">{{ icon_name }}</i>
+            </div>
+            
+            <div class="icon-actions">
+                <p>Nom: <code>{{ icon_name }}</code></p>
+                
+                <div class="size-selector">
+                    <label>Taille:</label>
+                    <select id="sizeSelect">
+                        <option value="18px">Petit (18px)</option>
+                        <option value="24px" selected>Moyen (24px)</option>
+                        <option value="36px">Grand (36px)</option>
+                        <option value="48px">Très grand (48px)</option>
+                    </select>
+                </div>
+                
+                <button onclick="downloadIcon()">
+                    <i class="material-icons">download</i> Télécharger
+                </button>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function downloadIcon() {
+            const iconName = "{{ icon_name }}";
+            const size = document.getElementById('sizeSelect').value;
+            
+            // Créer un canvas pour l'export
+            const canvas = document.createElement('canvas');
+            const sizeNum = parseInt(size);
+            canvas.width = sizeNum;
+            canvas.height = sizeNum;
+            const ctx = canvas.getContext('2d');
+            
+            // Fond transparent
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Simuler le rendu Material Icon
+            ctx.font = `${sizeNum}px Material Icons`;
+            ctx.fillStyle = '#000000';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(iconName, canvas.width/2, canvas.height/2);
+            
+            // Téléchargement
+            const link = document.createElement('a');
+            link.download = `material_icon_${iconName}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</body>
+</html>
